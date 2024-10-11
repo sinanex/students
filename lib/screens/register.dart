@@ -20,6 +20,14 @@ class _registerPageState extends State<registerPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text("Register",
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),),
+            SizedBox(
+              height: 60,
+            ),
             TextField(
               controller: _nameContoller,
               decoration: const InputDecoration(
@@ -64,7 +72,7 @@ class _registerPageState extends State<registerPage> {
                 width: double.infinity,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.yellow[800]),
+                        backgroundColor: Colors.yellow[900]),
                     onPressed: () {
                       register();
                     },

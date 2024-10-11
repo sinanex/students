@@ -19,6 +19,14 @@ class _LoginpageState extends State<Loginpage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text("Login",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 30,
+            ),),
+            SizedBox(
+              height: 60,
+            ),
        TextField(
               controller: _userLog,
               decoration: const InputDecoration(
@@ -28,13 +36,17 @@ class _LoginpageState extends State<Loginpage> {
             ),
             const SizedBox(height: 20,),
            TextField(
+           obscureText: true,
             controller: _passLog,
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
+                
                 hintText: 'password',
-                border: OutlineInputBorder()
+                border: OutlineInputBorder(),
+               
+               
               ),
             ),
-            const SizedBox(height: 10,),
+            SizedBox(height: 10,),
             const Align(
               alignment: Alignment.topRight,
               child: Text("forgot password?")),
