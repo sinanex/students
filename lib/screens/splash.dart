@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("splash",
+        child: Text("student list",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 30,

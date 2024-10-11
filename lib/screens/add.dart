@@ -34,7 +34,7 @@ class _AddDetailsState extends State<AddDetails> {
                 radius: 75,
                backgroundImage: _selectedImage != null
                     ? FileImage(_selectedImage!)
-                    : const AssetImage('assets/images/avatar-student-character-your-project-others-avatar-student-character-277369390.jpg.webp'),
+                    : const AssetImage('assets/images/std.webp'),
                 ),
           
               const SizedBox(
@@ -103,6 +103,7 @@ class _AddDetailsState extends State<AddDetails> {
     final address = adrressController.text;
     final cls = classContoller.text;
 
+
     if (name.isEmpty || age.isEmpty || address.isEmpty || cls.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           backgroundColor: Color.fromARGB(255, 52, 52, 52),
@@ -129,9 +130,9 @@ class _AddDetailsState extends State<AddDetails> {
     final image = await ImagePicker().pickImage(source: ImageSource.camera);
     
       setState(() {
-        _selectedImage = File(image!.path);
+        _selectedImage = File(image!.path); 
       });
     }
-  }
+}
 
  

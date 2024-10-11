@@ -31,7 +31,8 @@ class StudentsDetails extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 75,
-                 backgroundImage: FileImage(File(imagePath!)),
+
+                 backgroundImage: imagePath!=null?  FileImage(File(imagePath!)):AssetImage('assets/images/std.webp'),
 
               ),
               const SizedBox(

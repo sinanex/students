@@ -16,22 +16,50 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+
+ String search = '';
+  List<Students> searchedList = [];
+  void searchListUpdate() {
+    getAllStudent();
+    searchedList = studentListNotifier.value
+        .where((stdModel) =>
+          stdModel.studentName.toLowerCase().contains(search.toLowerCase()))
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
-    getAllStudent();
-
+getAllStudent();
     return Scaffold(
         appBar: AppBar(
-          title: TextField(
-            decoration: InputDecoration(
-              suffix: Icon(Icons.search,
-              size: 18,),
-              hintText: '  search',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50)
+          title:  SizedBox(
+            height: 50,
+            child: TextField(
+             
+                style: const TextStyle(color: Colors.white),
+                onChanged: (value) {
+                  setState(() {
+                    search = value;
+                    searchListUpdate();
+                  });
+                },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  fillColor: Colors.white,
+                  labelText: 'Search',
+                  labelStyle: const TextStyle(color: Colors.white),
+                  focusColor: Colors.white,
+                  suffixIcon: const Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
+                ),
               ),
-            ),
           ),
+          
           actions: [
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
@@ -57,20 +85,41 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 20,
             ),
             Expanded(
-              child: ValueListenableBuilder(
-                valueListenable: studentListNotifier,
-                builder: (context, List<Students> studentList, child) {
-                  return studentList.isEmpty
-                      ? Center(
-                          child: Text(
-                          "No data Available",
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ))
+            child: ValueListenableBuilder(
+              valueListenable: studentListNotifier,
+              builder:
+                  // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
+                  (BuildContext, List<Students> studentList, Widget? child) {
+                return search.isNotEmpty
+                    ? searchedList.isEmpty
+                        ? const Center(
+                            child: Text(
+                              'No results found.',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )
+                        : _buildStudentList(searchedList)
+                    : _buildStudentList(studentList);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStudentList(List<Students> students) {
+    return students.isEmpty
+        ? const Center(
+            child: Text(
+              'No students available.',
+              style: TextStyle(color: Colors.white),
+            ),
+          )
+
                       : ListView.builder(
                           itemBuilder: (context, index) {
-                            final data = studentList[index];
+                            final data = students[index];
                             return ListTile(
                               onTap: () {
                                 Navigator.push(
@@ -110,23 +159,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                               leading: CircleAvatar(
-                                backgroundImage: data.imagePath != null
-                            ? FileImage(File(data.imagePath ?? "N/A"))
-                            : const AssetImage("assets/student.jpg") 
+                                  // ignore: unnecessary_null_comparison
+                                  backgroundImage: data.imagePath != null ? FileImage(File(data.imagePath!)):AssetImage('assets/images/std.webp')
+                               
+                              // backgroundImage: FileImage(File(data.imagePath!))
                               ),
+                              
                               title: Text(
                                 data.studentName,
                                 style: TextStyle(color: Colors.amber),
                               ),
                             );
                           },
-                          itemCount: studentList.length,
+                          itemCount: students.length,
                         );
-                },
-              ),
-            ),
-          ],
-        ));
+                }
+        //       ),
+        //     ),
+        //   ],
+        // ));
   }
 
 
@@ -207,4 +258,4 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
   }
-}
+
