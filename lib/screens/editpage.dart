@@ -1,8 +1,7 @@
 
-
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:students/functions/student_funtions.dart';
 import 'package:students/model/student_model.dart';
 
 // ignore: must_be_immutable
@@ -31,7 +30,7 @@ class _EditpageState extends State<Editpage> {
   TextEditingController ageEditContoller = TextEditingController();
   TextEditingController classEditContoller = TextEditingController();
   TextEditingController adrressEditController = TextEditingController();
-  File? _selectedImage1;
+  // File? _selectedImage1;
 
   @override
   void initState() {
@@ -56,21 +55,21 @@ class _EditpageState extends State<Editpage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            CircleAvatar(
-              radius: 75,
-              backgroundImage: 
-                  FileImage(_selectedImage1!)
+            // CircleAvatar(
+            //   radius: 75,
+            //   backgroundImage: 
+            //       FileImage(_selectedImage1!)
                 
-            ),
+            // ),
             const SizedBox(height: 20),
-            TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.yellow[900],
-                foregroundColor: Colors.white,
-              ),
-              onPressed: image,
-              child: Text("Change Avatar"),
-            ),
+            // TextButton(
+            //   style: TextButton.styleFrom(
+            //     backgroundColor: Colors.yellow[900],
+            //     foregroundColor: Colors.white,
+            //   ),
+            //   // onPressed: image,
+            //   child: Text("Change Avatar"),
+            // ),
             const SizedBox(height: 20),
             TextField(
               controller: nameEditController,
@@ -126,7 +125,7 @@ class _EditpageState extends State<Editpage> {
     final eage = ageEditContoller.text.trim();
     final eclass = classEditContoller.text.trim();
     final eadress = adrressEditController.text.trim();
-    final image1 = _selectedImage1?.path ?? "";
+    // final image1 = _selectedImage1?.path ?? "";
 
     if (ename.isEmpty || eage.isEmpty || eclass.isEmpty || eadress.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -144,18 +143,18 @@ class _EditpageState extends State<Editpage> {
         studentAddress: eadress,
         age: eage,
       );
-      // editing(widget.index, updateStudent);
+         Provider.of<studentDb>(context,listen: false).editData(updateStudent, widget.index!);
       Navigator.pop(context);
     }
   }
 
-  void image() async {
-    final pickedImage = await ImagePicker().pickImage(source: ImageSource.camera);
+  // void image() async {
+  //   final pickedImage = await ImagePicker().pickImage(source: ImageSource.camera);
 
-    if (pickedImage != null) {
-      setState(() {
-        _selectedImage1 = File(pickedImage.path);
-      });
-    }
-  }
+  //   if (pickedImage != null) {
+  //     setState(() {
+  //       _selectedImage1 = File(pickedImage.path);
+  //     });
+  //   }
+  // }
 }
