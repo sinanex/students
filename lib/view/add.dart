@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:students/functions/student_funtions.dart';
+import 'package:students/contoller/student_funtions.dart';
 import 'package:students/model/student_model.dart';
-import 'package:students/screens/home.dart';
-import 'package:students/screens/provider.dart';
+import 'package:students/view/home.dart';
+import 'package:students/view/provider.dart';
 
 class AddDetails extends StatelessWidget {
   AddDetails({super.key});

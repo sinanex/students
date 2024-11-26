@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:students/functions/student_funtions.dart';
+import 'package:students/contoller/student_funtions.dart';
 import 'package:students/model/student_model.dart';
-import 'package:students/screens/home.dart';
-import 'package:students/screens/login.dart';
-import 'package:students/screens/register.dart';
-import 'package:students/screens/splash.dart';
+import 'package:students/view/home.dart';
+import 'package:students/view/login.dart';
+import 'package:students/view/register.dart';
+import 'package:students/view/splash.dart';
 import 'package:provider/provider.dart';
 void main()async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: HomePage(),
+      home: SplashScreen(),
     );
   }
 }

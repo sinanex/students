@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:students/functions/student_funtions.dart';
+import 'package:students/contoller/student_funtions.dart';
 import 'package:students/model/student_model.dart';
 
 // ignore: must_be_immutable

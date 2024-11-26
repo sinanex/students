@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:students/functions/student_funtions.dart';
-import 'package:students/screens/add.dart';
-import 'package:students/screens/editpage.dart';
+import 'package:students/contoller/student_funtions.dart';
+import 'package:students/view/add.dart';
+import 'package:students/view/editpage.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
