@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:students/contoller/student_funtions.dart';
+import 'package:students/controller/image.dart';
+import 'package:students/controller/student_funtions.dart';
 import 'package:students/model/student_model.dart';
 import 'package:students/view/home.dart';
-import 'package:students/view/provider.dart';
 
 class AddDetails extends StatelessWidget {
   AddDetails({super.key});
@@ -31,8 +31,8 @@ class AddDetails extends StatelessWidget {
             child: Column(children: [
               CircleAvatar(
                 radius: 75,
-                backgroundImage: _selectedImage != null
-                    ? FileImage(_selectedImage!)
+                backgroundImage: Provider.of<imageProvider>(context,listen: false).image != null
+                    ? FileImage(Provider.of<imageProvider>(context,listen: false).image!)
                     : const AssetImage('assets/images/std.webp'),
               ),
               const SizedBox(
@@ -43,7 +43,9 @@ class AddDetails extends StatelessWidget {
                     backgroundColor: Colors.yellow[900],
                     foregroundColor: Colors.white,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Provider.of<imageProvider>(context,listen: false).getImage();
+                  },
                   child: Text("Add Avatar")),
               SizedBox(
                 height: 30,
@@ -103,6 +105,7 @@ class AddDetails extends StatelessWidget {
       return;
     } else {
       final data = Students(
+        image: Provider.of<imageProvider>(context,listen: false).image!.path,
           studentName: name,
           studentClass: cls,
           studentAddress: address,

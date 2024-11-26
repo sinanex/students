@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:students/contoller/student_funtions.dart';
+import 'package:students/controller/student_funtions.dart';
 import 'package:students/model/student_model.dart';
 
 // ignore: must_be_immutable
@@ -138,6 +138,7 @@ class _EditpageState extends State<Editpage> {
       ));
     } else {
       final updateStudent = Students(
+        image: eclass,
         studentName: ename,
         studentClass: eclass,
         studentAddress: eadress,

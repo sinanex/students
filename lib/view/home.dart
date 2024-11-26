@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:students/contoller/student_funtions.dart';
+import 'package:students/controller/student_funtions.dart';
 import 'package:students/view/add.dart';
+import 'package:students/view/details.dart';
 import 'package:students/view/editpage.dart';
 
 class HomePage extends StatelessWidget {
@@ -9,7 +12,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<studentDb>(listen: false,context).getData();
+    Provider.of<studentDb>(listen: false, context).getData();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -25,11 +28,15 @@ class HomePage extends StatelessWidget {
             itemBuilder: (context, index) {
               final data = value.studentList[index];
               return ListTile(
+                leading: CircleAvatar(
+                  backgroundImage: FileImage(File(data.image!)),
+                ),
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => Editpage(
+                          builder: (context) =>StudentsDetails (
+                            image: data.image!,
                               name: data.studentName!,
                               age: data.age!,
                               cls: data.studentClass!,

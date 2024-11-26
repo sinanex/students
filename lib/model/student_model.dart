@@ -13,11 +13,13 @@ class Students {
   String studentAddress;
   @HiveField(3)
   String age;
-
+   @HiveField(4)
+   String? image;
   Students({
       required this.studentName,
       required this.studentClass,
       required this.studentAddress,
       required this.age,
+      required this.image,
       });
 }

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:students/widgets/widget.dart';
+import 'package:students/view/widgets/widget.dart';
 
 // ignore: must_be_immutable
 class StudentsDetails extends StatelessWidget {
@@ -9,12 +9,16 @@ class StudentsDetails extends StatelessWidget {
   String? age;
   String? cls;
   String? address;
+  String? image;
+  int index;
   StudentsDetails(
       {super.key,
       required this.name,
       required this.age,
       required this.cls,
       required this.address,
+      required this.image,
+      required this.index,
       });
   @override
   Widget build(BuildContext context) {
@@ -27,8 +31,8 @@ class StudentsDetails extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 75,
-
-                //  backgroundImage: imagePath!=null?  FileImage(File(imagePath!)):AssetImage('assets/images/std.webp'),
+  child: Image.file(File(image!)),
+              
 
               ),
               const SizedBox(
