@@ -9,19 +9,38 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>AddDetails()));
-      },child: Icon(Icons.add),),
-      body: Consumer<studentDb>(builder: (context, value, child) {
-        return ListView.builder(
-          itemCount: value.studentList.length,
-          itemBuilder: (context, index) {
-            final data = value.studentList[index];
-          return ListTile(
-            title: Text(data.studentName!),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddDetails()));
+        },
+        child: Icon(Icons.add),
+      ),
+      body: Consumer<studentDb>(
+        builder: (context, value, child) {
+          return ListView.builder(
+            itemCount: value.studentList.length,
+            itemBuilder: (context, index) {
+              final data = value.studentList[index];
+              return ListTile(
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.edit),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    IconButton(icon:Icon(Icons.delete),onPressed: () {
+                      Provider.of<studentDb>(context,listen: false).deleteData(index);
+                    },),
+                  ],
+                ),
+                title: Text(data.studentName!),
+              );
+            },
           );
-        },);
-      },),
+        },
+      ),
     );
   }
 }
