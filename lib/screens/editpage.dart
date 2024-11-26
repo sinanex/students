@@ -3,7 +3,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:students/functions/student_funtions.dart';
 import 'package:students/model/student_model.dart';
 
 // ignore: must_be_immutable
@@ -13,7 +12,6 @@ class Editpage extends StatefulWidget {
   String? cls;
   String? address;
   int? index;
-  dynamic imagePath;
   
   Editpage({
     super.key,
@@ -22,7 +20,6 @@ class Editpage extends StatefulWidget {
     required this.cls,
     required this.address,
     required this.index,
-    required this.imagePath,
   });
 
   @override
@@ -43,7 +40,7 @@ class _EditpageState extends State<Editpage> {
     ageEditContoller = TextEditingController(text: widget.age);
     classEditContoller = TextEditingController(text: widget.cls);
     adrressEditController = TextEditingController(text: widget.address);
-    _selectedImage1 = File(widget.imagePath);
+    // _selectedImage1 = File(widget.imagePath);
   }
 
   @override
@@ -146,9 +143,8 @@ class _EditpageState extends State<Editpage> {
         studentClass: eclass,
         studentAddress: eadress,
         age: eage,
-        imagePath: image1,
       );
-      editing(widget.index, updateStudent);
+      // editing(widget.index, updateStudent);
       Navigator.pop(context);
     }
   }

@@ -1,25 +1,24 @@
-import 'dart:developer';
 import 'dart:io';
-// import 'dart:io';
-// import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:students/functions/student_funtions.dart';
 import 'package:students/model/student_model.dart';
+import 'package:students/screens/home.dart';
+import 'package:students/screens/provider.dart';
 
-class AddDetails extends StatefulWidget {
-  const AddDetails({super.key});
+class AddDetails extends StatelessWidget {
+  AddDetails({super.key});
 
-  @override
-  State<AddDetails> createState() => _AddDetailsState();
-}
-
-class _AddDetailsState extends State<AddDetails> {
   TextEditingController nameController = TextEditingController();
+
   TextEditingController ageContoller = TextEditingController();
+
   TextEditingController classContoller = TextEditingController();
+
   TextEditingController adrressController = TextEditingController();
+
   TextEditingController numberController = TextEditingController();
+
   File? _selectedImage;
 
   @override
@@ -30,25 +29,22 @@ class _AddDetailsState extends State<AddDetails> {
           padding: const EdgeInsets.all(16.0),
           child: Container(
             child: Column(children: [
-            CircleAvatar(
+              CircleAvatar(
                 radius: 75,
-               backgroundImage: _selectedImage != null
+                backgroundImage: _selectedImage != null
                     ? FileImage(_selectedImage!)
                     : const AssetImage('assets/images/std.webp'),
-                ),
-          
+              ),
               const SizedBox(
                 height: 20,
               ),
               TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.yellow[900],
-                  foregroundColor: Colors.white,
-                ),
-
-                onPressed: (){
-                fromGallery();
-              }, child: Text("Add Avatar")),
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.yellow[900],
+                    foregroundColor: Colors.white,
+                  ),
+                  onPressed: () {},
+                  child: Text("Add Avatar")),
               SizedBox(
                 height: 30,
               ),
@@ -89,50 +85,31 @@ class _AddDetailsState extends State<AddDetails> {
                           backgroundColor: Colors.yellow[900],
                           foregroundColor: Colors.white),
                       onPressed: () {
-                        onAddBtn();
+                        onAddBtn(context);
                       },
                       child: const Text("submit"))),
-        ]),
+            ]),
           ),
         ));
   }
 
-  Future<void> onAddBtn() async {
+  Future<void> onAddBtn(BuildContext context) async {
     final name = nameController.text;
     final age = ageContoller.text;
     final address = adrressController.text;
     final cls = classContoller.text;
 
-
-    if (name.isEmpty || age.isEmpty || address.isEmpty || cls.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          backgroundColor: Color.fromARGB(255, 52, 52, 52),
-          content: Text(
-            "please fill all feild",
-            style: TextStyle(color: Colors.white),
-          )));
+    if (name.isEmpty && age.isEmpty && address.isEmpty && cls.isEmpty) {
+      return;
     } else {
-      final student = Students(
-        imagePath: _selectedImage?.path ?? " " ,
-        studentName: name,
-        age: age,
-        studentAddress: address,
-        studentClass: cls,
-      );
-
-      addStudent(student);
-      log(student.studentName);
-      Navigator.pop(context);
+      final data = Students(
+          studentName: name,
+          studentClass: cls,
+          studentAddress: address,
+          age: age);
+       Provider.of<studentDb>(context,listen: false).addStudent(data);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomePage()));
     }
   }
-
-  void fromGallery() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.camera);
-    
-      setState(() {
-        _selectedImage = File(image!.path); 
-      });
-    }
 }
-
- 
